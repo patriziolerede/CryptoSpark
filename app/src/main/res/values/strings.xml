@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">CryptoSpark</string>
+    <string name="markets_list_header">Markets from public CoinGecko Api</string>
+    <string name="markets_screen_top_bar_title">CoinGecko Markets</string>
+    <string name="markets_screen_snackbar_loaded_message">Markets are loaded.</string>
+    <string name="no_description_informed">No description</string>
+    <string name="location_not_defined">Location not defined</string>
+
+    <string name="button_view_website_title">VIEW WEBSITE</string>
+    <string name="website_not_found_dialog_title">Website not found</string>
+    <string name="website_not_found_dialog_text">The coinmarket doesn\'t have a website</string>
+    <string name="website_not_found_dialog_confirm_button">Got it</string>
+    <string name="network_error_description">A network error occurred. Check your connection or try again</string>
+    <string name="network_error_title">Oh no!</string>
+    <string name="network_error_retry_button_text">Try again</string>
+</resources>
