@@ -6,6 +6,7 @@
     <dimen name="padding_medium">16dp</dimen>
     <dimen name="padding_large">20dp</dimen>
     <dimen name="padding_xlarge">26dp</dimen>
+    <dimen name="shape_xlarge">24dp</dimen>
     <dimen name="avatar_size_medium">72dp</dimen>
     <dimen name="avatar_size_large">96dp</dimen>
     <dimen name="market_list_item_start_indent">88dp</dimen>

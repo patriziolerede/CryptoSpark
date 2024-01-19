@@ -6,7 +6,7 @@
     <string name="no_description_informed">No description</string>
     <string name="location_not_defined">Location not defined</string>
 
-    <string name="button_view_website_title">VIEW WEBSITE</string>
+    <string name="button_view_website_title">View website</string>
     <string name="website_not_found_dialog_title">Website not found</string>
     <string name="website_not_found_dialog_text">The coinmarket doesn\'t have a website</string>
     <string name="website_not_found_dialog_confirm_button">Got it</string>

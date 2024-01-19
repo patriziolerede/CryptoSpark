@@ -3,7 +3,10 @@ package com.cryptospark.ui.feature.detail.composables
 import android.text.util.Linkify.WEB_URLS
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +17,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
@@ -24,6 +29,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
@@ -35,51 +41,68 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.cryptospark.R
 import com.cryptospark.ui.feature.common.RoundedImage
 import com.cryptospark.ui.models.CoinDetailDisplayable
+import com.cryptospark.ui.theme.InformationColor
 import com.cryptospark.ui.theme.OnSurfaceTextAlpha
 import com.cryptospark.ui.theme.Purple200
+import com.cryptospark.ui.theme.paddingXL
+import com.cryptospark.ui.theme.paddingXXL
 import com.google.android.material.textview.MaterialTextView
 import java.util.Locale
 
 @Composable
 fun DetailHeader(coinDetail: CoinDetailDisplayable) {
     val paddingMedium = dimensionResource(id = R.dimen.padding_medium)
-    val paddingXSmall = dimensionResource(id = R.dimen.padding_xsmall)
 
-    LazyColumn(
+    Box(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp),
-        contentPadding = PaddingValues(top = 16.dp, bottom = 32.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.Start,
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(16.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(InformationColor),
+        contentAlignment = Alignment.TopCenter
     ) {
-        item {
-            IconSection(coinDetail)
 
-            Spacer(modifier = Modifier.size(paddingXSmall))
-        }
-        item {
-            AnimatedVisibility(
-                visible = true,
-                exit = ExitTransition.None
-            ) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(RoundedCornerShape(12.dp))
+                .background(InformationColor)
+                .padding(16.dp),
+            contentPadding = PaddingValues(top = 16.dp, bottom = 32.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start,
+        ) {
+            item {
+                IconSection(coinDetail)
 
-                LineChart(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(128.dp),
-                    data = coinDetail.sparklineData,
-                    graphColor = Purple200,
-                    showDashedLine = true,
-                    showYLabels = true
-                )
+                Spacer(modifier = Modifier.size(paddingMedium))
+            }
+            item {
+                AnimatedVisibility(
+                    visible = true,
+                    exit = ExitTransition.None
+                ) {
+
+                    LineChart(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(128.dp),
+                        data = coinDetail.sparklineData,
+                        graphColor = Purple200,
+                        showDashedLine = true,
+                        showYLabels = true
+                    )
+                }
+                Spacer(modifier = Modifier.size(paddingMedium))
+                DetailSession(coinDetail)
+
+                Spacer(modifier = Modifier.size(paddingMedium))
+
+                ButtonsSession(coinDetail)
+
             }
 
-            DetailSession(coinDetail)
-
-            Spacer(modifier = Modifier.size(paddingMedium))
-
-            ButtonsSession(coinDetail)
         }
 
     }
@@ -109,13 +132,16 @@ fun DetailSession(coinDetail: CoinDetailDisplayable) {
         style = MaterialTheme.typography.h5,
         fontWeight = FontWeight.Bold
     )
+
+    Spacer(modifier = Modifier.size(paddingXL))
     Text(
         text = coinDetail.symbol.orEmpty(),
-        style = MaterialTheme.typography.h3,
+        style = MaterialTheme.typography.h6,
         textAlign = TextAlign.Start
     )
+    Spacer(modifier = Modifier.size(paddingXL))
     AndroidView(
-        modifier =  Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         factory = {
             MaterialTextView(it).apply {
                 // links
@@ -133,15 +159,16 @@ fun DetailSession(coinDetail: CoinDetailDisplayable) {
 
 @Composable
 fun ButtonsSession(coinDetail: CoinDetailDisplayable) {
-    // See all button
+
     val context = LocalContext.current
-    val websiteIntent = remember{ coinDetail.website?.let { com.cryptospark.common.buildUrlIntent(it) } }
+    val websiteIntent =
+        remember { coinDetail.website?.let { com.cryptospark.common.buildUrlIntent(it) } }
 
     // View Website
     val websiteNotFoundDialog = remember { mutableStateOf(false) }
 
-    Row(modifier = Modifier.fillMaxWidth()) {
-   
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+
         OutlinedButton(onClick = {
             if (coinDetail.website.isNullOrEmpty()) {
                 websiteNotFoundDialog.value = true
@@ -164,9 +191,11 @@ fun ButtonsSession(coinDetail: CoinDetailDisplayable) {
                 Text(text = stringResource(R.string.website_not_found_dialog_text))
             },
             confirmButton = {
-                Text(text = stringResource(R.string.website_not_found_dialog_confirm_button).uppercase(
-                    Locale.getDefault()
-                ))
+                Text(
+                    text = stringResource(R.string.website_not_found_dialog_confirm_button).uppercase(
+                        Locale.getDefault()
+                    )
+                )
             })
     }
 }
