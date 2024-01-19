@@ -23,6 +23,7 @@ data class SparklineIn7d(
 
 fun buildMarketPreview() = MarketDisplayable(
     id = "bitcoin",
+    currentPrice = "3.45",
     image = "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
     sparklineData = persistentListOf()
 )

@@ -1,5 +1,7 @@
 package com.cryptospark.data.model
 
+import android.text.Spanned
+import androidx.core.text.toSpanned
 import com.cryptospark.ui.models.CoinDetailDisplayable
 import com.google.gson.annotations.SerializedName
 import kotlinx.collections.immutable.persistentListOf
@@ -12,11 +14,11 @@ data class CoinDetail (
     @SerializedName("name")
     val name: String,
     @SerializedName("image")
-    val image: com.cryptospark.data.model.Image,
+    val image: Image,
     @SerializedName("links")
-    val links: com.cryptospark.data.model.Links,
+    val links: Links,
     @SerializedName("description")
-    val description: com.cryptospark.data.model.Description,
+    val description: Description,
 
     @SerializedName("market_data")
 val marketData: MarketData? = null
@@ -52,9 +54,9 @@ data class Image(
 
 fun buildCoinDetailPreview() = CoinDetailDisplayable(
    id="BTC",
-    name = "Wellington Cabral da Silva",
+    name = "Bitcoin",
     symbol = "BTC",
-  description = "",
+  description = "descriptio".toSpanned(),
     image = "",
 website = "",
     sparklineData = persistentListOf()

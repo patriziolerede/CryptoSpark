@@ -7,6 +7,6 @@ data class MarketDisplayable(
     val symbol: String? = null,
     val name: String? = null,
     val image: String? = null,
-    val currentPrice: Double? = null,
-    val sparklineData: ImmutableList<com.cryptospark.data.model.DataPoint>
+    val currentPrice: String,
+    val sparklineData: ImmutableList<DataPoint>
 )

@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import com.cryptospark.data.model.DataPoint
+import com.cryptospark.ui.models.DataPoint
 import com.cryptospark.ui.theme.Purple500
 import kotlinx.collections.immutable.ImmutableList
 import timber.log.Timber

@@ -1,7 +1,9 @@
 package com.cryptospark.ui
 
 import androidx.compose.ui.graphics.Color
+import androidx.core.text.HtmlCompat
 import com.cryptospark.ui.models.CoinDetailDisplayable
+import com.cryptospark.ui.models.DataPoint
 import com.cryptospark.ui.models.MarketDisplayable
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
@@ -16,7 +18,7 @@ fun com.cryptospark.data.model.Market.toPresentationModel() = MarketDisplayable(
     name = name,
    symbol = symbol,
     image = image,
-    currentPrice = currentPrice,
+    currentPrice = currentPrice?.roundToTwoDecimals()?.addSuffix("€").orNA(),
     sparklineData = sparklineIn7d?.price.toSparklineData()
 )
 
@@ -25,9 +27,16 @@ fun com.cryptospark.data.model.CoinDetail.toPresentationModel() = CoinDetailDisp
     name = name,
     symbol = symbol,
     image = image.large,
-    description = description.en,
+    website = links.homepage.first(),
+    description = HtmlCompat.fromHtml(description.en, 0),
     sparklineData = marketData?.sparkline7d?.price.toSparklineData()
 )
+
+
+private val formatTwo = java.text.DecimalFormat("##.##")
+fun String.addSuffix(value: String) = value + this
+fun Double.roundToTwoDecimals() = formatTwo.format(this).toString()
+
 
 fun List<Double>?.toSparklineData() =
     this?.let {
@@ -44,7 +53,7 @@ fun List<Double>?.toSparklineData() =
     }?.map {
         it.roundToNDecimals(decimals = 8)
     }?.mapIndexed { _, d ->
-        com.cryptospark.data.model.DataPoint(y = d, xLabel = null, yLabel = null)
+        DataPoint(y = d, xLabel = null, yLabel = null)
     }?.toImmutableList() ?: persistentListOf()
 
 fun Double.roundToNDecimals(decimals: Int, roundingMode: RoundingMode = RoundingMode.UP): Double {

@@ -1,4 +1,4 @@
-package com.cryptospark.data.model
+package com.cryptospark.ui.models
 
 data class DataPoint(
     val y: Double,

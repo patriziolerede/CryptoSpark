@@ -1,5 +1,6 @@
 package com.cryptospark.ui.feature.detail.composables
 
+import android.text.util.Linkify.WEB_URLS
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.Arrangement
@@ -23,17 +24,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.cryptospark.R
 import com.cryptospark.ui.feature.common.RoundedImage
 import com.cryptospark.ui.models.CoinDetailDisplayable
 import com.cryptospark.ui.theme.OnSurfaceTextAlpha
 import com.cryptospark.ui.theme.Purple200
+import com.google.android.material.textview.MaterialTextView
 import java.util.Locale
 
 @Composable
@@ -110,10 +114,20 @@ fun DetailSession(coinDetail: CoinDetailDisplayable) {
         style = MaterialTheme.typography.h3,
         textAlign = TextAlign.Start
     )
-    Text(
-        text = coinDetail.description,
-        style = MaterialTheme.typography.subtitle1,
-        color = MaterialTheme.colors.onSurface.copy(alpha = OnSurfaceTextAlpha)
+    AndroidView(
+        modifier =  Modifier.fillMaxWidth(),
+        factory = {
+            MaterialTextView(it).apply {
+                // links
+                autoLinkMask = WEB_URLS
+                linksClickable = true
+                // setting the color to use forr highlihting the links
+                setLinkTextColor(Purple200.toArgb())
+            }
+        },
+        update = {
+            it.text = coinDetail.description
+        }
     )
 }
 
@@ -121,7 +135,7 @@ fun DetailSession(coinDetail: CoinDetailDisplayable) {
 fun ButtonsSession(coinDetail: CoinDetailDisplayable) {
     // See all button
     val context = LocalContext.current
-    val websiteIntent = remember{ com.cryptospark.common.buildUrlIntent("") }
+    val websiteIntent = remember{ coinDetail.website?.let { com.cryptospark.common.buildUrlIntent(it) } }
 
     // View Website
     val websiteNotFoundDialog = remember { mutableStateOf(false) }
@@ -129,7 +143,7 @@ fun ButtonsSession(coinDetail: CoinDetailDisplayable) {
     Row(modifier = Modifier.fillMaxWidth()) {
    
         OutlinedButton(onClick = {
-            if (coinDetail.id.isEmpty()) {
+            if (coinDetail.website.isNullOrEmpty()) {
                 websiteNotFoundDialog.value = true
             } else {
                 context.startActivity(websiteIntent)
