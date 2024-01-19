@@ -34,7 +34,7 @@ class CoinGeckoRepositoryTest {
     }
 
     @Test
-    fun `When getUser called then should call getCoinDetail from the API`() = runTest {
+    fun `When getDetail called then should call getCoinDetail from the API`() = runTest {
         // Given
         val coinId = "bitcoin"
         coEvery { coingeckoApi.getDetail(any()) } returns CoinDetail(

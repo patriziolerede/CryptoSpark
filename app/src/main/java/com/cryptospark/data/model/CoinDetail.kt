@@ -17,13 +17,19 @@ data class CoinDetail (
     val links: com.cryptospark.data.model.Links,
     @SerializedName("description")
     val description: com.cryptospark.data.model.Description,
-    @SerializedName("sparkline_in_7d")
-val sparklineIn7d: com.cryptospark.data.model.SparklineIn7d? = null
+
+    @SerializedName("market_data")
+val marketData: MarketData? = null
 )
 
 data class Description(
     @SerializedName("en")
     val en: String
+)
+
+data class MarketData(
+    @SerializedName("sparkline_7d")
+    val sparkline7d: SparklineIn7d? = null
 )
 
 data class Links(

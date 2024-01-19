@@ -25,9 +25,9 @@ class AppModuleTest {
     @Test
     fun `verify koin app`() {
         koinApplication {
-            modules(com.cryptospark.di.appModule, repositoryModule, viewModelModule)
+            modules(appModule, repositoryModule, viewModelModule)
             checkModules {
-                withParameter<DetailViewModel> { "userId" }
+                withParameter<DetailViewModel> { "coinId" }
             }
         }
     }

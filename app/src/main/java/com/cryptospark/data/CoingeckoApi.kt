@@ -15,8 +15,12 @@ interface CoingeckoApi {
         @Query("price_change_percentage") priceChangePercentageIntervals: String = "",
         @Query("ids") coinIds: String? = null
     ): List<com.cryptospark.data.model.Market>
+
     @GET(Endpoints.GET_DETAIL)
-    suspend fun getDetail(@Path("id") coinId: String): com.cryptospark.data.model.CoinDetail?
+    suspend fun getDetail(
+        @Path("id") coinId: String,
+        @Query("sparkline") includeSparkline7dData: Boolean = true
+    ): com.cryptospark.data.model.CoinDetail?
 
 
 }

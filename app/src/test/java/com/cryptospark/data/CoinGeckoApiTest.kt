@@ -67,7 +67,7 @@ class CoinGeckoApiTest {
     }
 
     @Test
-    fun `Given 200 response When fetching user Then returns coindetail correctly`() {
+    fun `Given 200 response When fetching coinDetail Then returns coindetail correctly`() {
         // Given
         val coinId = "bitcoin"
         mockWebService.enqueueResponse(

@@ -25,7 +25,7 @@ fun AppNavigation() {
         }
 
         composable(
-            route = Navigation.Routes.REPOS,
+            route = Navigation.Routes.DETAIL,
             arguments = listOf(navArgument(name = COIN_ID) {
                 type = NavType.StringType
             })
@@ -47,7 +47,7 @@ object Navigation {
 
     object Routes {
         const val MARKETS = "markets"
-        const val REPOS = "$MARKETS/{$COIN_ID}"
+        const val DETAIL = "$MARKETS/{$COIN_ID}"
     }
 
 }

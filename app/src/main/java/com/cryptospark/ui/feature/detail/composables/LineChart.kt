@@ -6,18 +6,27 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.asAndroidPath
+import androidx.compose.ui.graphics.asComposePath
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import kotlinx.collections.immutable.ImmutableList
+import com.cryptospark.data.model.DataPoint
 import com.cryptospark.ui.theme.Purple500
+import kotlinx.collections.immutable.ImmutableList
 import timber.log.Timber
 
 @Composable
 fun LineChart(
     modifier: Modifier = Modifier,
-    data: ImmutableList<com.cryptospark.data.model.DataPoint>,
+    data: ImmutableList<DataPoint>,
     graphColor: Color,
     showDashedLine: Boolean,
     showYLabels: Boolean = false
@@ -36,8 +45,8 @@ fun LineChart(
 
     val (lowerValue, upperValue) = remember(key1 = data) {
         Pair(
-            data.minOf { it.y },
-            data.maxOf { it.y }
+            data.minBy { it.y },
+            data.maxBy { it.y }
         )
     }
 
@@ -79,8 +88,8 @@ fun LineChart(
             for (i in data.indices) {
                 val info = data[i]
                 val nextInfo = data.getOrNull(i + 1) ?: data.last()
-                val leftRatio = 2.0
-                val rightRatio = 3.0
+                val leftRatio = (info.y - lowerValue.y) / (upperValue.y - lowerValue.y)
+                val rightRatio = (nextInfo.y - lowerValue.y) / (upperValue.y - lowerValue.y)
 
                 val x1 = spacing + i * spacePerHour
                 val y1 = height - spacing - (leftRatio * height).toFloat()
@@ -157,13 +166,13 @@ fun LineChart(
 
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
-                    "MAX ${"eew".orEmpty()}",
+                    "MAX ${upperValue.yLabel.orEmpty()}",
                     size.width - 16.dp.toPx(),
                     0 + 8.dp.toPx(),
                     textPaint
                 )
                 drawText(
-                    "MIN ${"234".orEmpty()}",
+                    "MIN ${lowerValue.yLabel.orEmpty()}",
                     size.width - 16.dp.toPx(),
                     size.height - 4.dp.toPx(),
                     textPaint
@@ -202,5 +211,4 @@ fun LineChart(
 
 
     }
-
 }

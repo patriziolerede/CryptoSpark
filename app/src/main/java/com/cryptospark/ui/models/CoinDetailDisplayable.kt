@@ -1,5 +1,6 @@
 package com.cryptospark.ui.models
 
+import com.cryptospark.data.model.DataPoint
 import kotlinx.collections.immutable.ImmutableList
 
 data class CoinDetailDisplayable(
@@ -9,5 +10,5 @@ data class CoinDetailDisplayable(
     val image: String? = null,
     val description: String,
     val website: String? = null,
-    val sparklineData: ImmutableList<com.cryptospark.data.model.DataPoint>
+    val sparklineData: ImmutableList<DataPoint>
 )

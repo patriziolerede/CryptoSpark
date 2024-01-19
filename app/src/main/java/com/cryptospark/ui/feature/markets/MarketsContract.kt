@@ -9,7 +9,7 @@ class MarketsContract {
 
     sealed class Event : ViewEvent {
         object Retry : Event()
-        data class MarketSelection(val market: MarketDisplayable) : Event()
+        data class UserSelection(val market: MarketDisplayable) : Event()
     }
 
     data class State(

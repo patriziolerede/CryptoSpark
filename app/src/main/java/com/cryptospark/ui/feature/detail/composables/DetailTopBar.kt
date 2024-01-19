@@ -12,9 +12,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.cryptospark.R
 
 @Composable
-fun ReposTopBar(onBackButtonClicked: () -> Unit) {
+fun DetailTopBar(coinName:String,
+                 onBackButtonClicked: () -> Unit) {
     TopAppBar(
-        title = { Text(text = stringResource(R.string.markets_screen_top_bar_title)) },
+        title = { Text(text = coinName) },
         navigationIcon = {
             IconButton(onClick = { onBackButtonClicked() }) {
                 Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = null)
@@ -25,6 +26,6 @@ fun ReposTopBar(onBackButtonClicked: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun ReposTopBarPreview() {
-    ReposTopBar {}
+fun DetailTopBarPreview() {
+    DetailTopBar("bitcoin") {}
 }

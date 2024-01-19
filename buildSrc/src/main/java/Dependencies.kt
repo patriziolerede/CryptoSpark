@@ -9,7 +9,7 @@ object Dependencies {
 
         object Version {
             const val gradle = "7.0.4"
-            const val kotlin = "1.6.10"
+            const val kotlin = "1.7.20"
         }
 
         const val gradle = "com.android.tools.build:gradle:${Version.gradle}"
@@ -22,7 +22,8 @@ object Dependencies {
             const val coreKtx = "1.7.0"
             const val appCompat = "1.4.1"
             const val activityCompose = "1.4.0"
-            const val compose = "1.1.1"
+            const val compose = "1.3.0"
+            const val composeCompiler = "1.3.2"
             const val lifecycle = "2.5.0-rc01"
             const val lifecycleExtensions = "2.2.0"
         }

@@ -1,5 +1,6 @@
 package com.cryptospark.ui.feature.detail.composables
 
+import android.annotation.SuppressLint
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,8 +13,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun ReposScreen(
+fun DetailScreen(
     state: DetailContract.State,
     effectFlow: Flow<DetailContract.Effect>?,
     onEventSent: (event: DetailContract.Event) -> Unit,
@@ -31,16 +33,18 @@ fun ReposScreen(
     }
 
     Scaffold(
-        topBar = { ReposTopBar {
-            onEventSent(DetailContract.Event.BackButtonClicked)
-        } }
+        topBar = {
+            DetailTopBar(state.detail?.name.orEmpty()) {
+                onEventSent(DetailContract.Event.BackButtonClicked)
+            }
+        }
     ) {
         when {
             state.isLoading -> Progress()
             state.isError -> NetworkError { onEventSent(DetailContract.Event.Retry) }
             else -> {
                 state.detail?.let { detail ->
-                   DetailHeader(coinDetail = detail)
+                    DetailHeader(coinDetail = detail)
                 }
             }
         }
@@ -48,11 +52,10 @@ fun ReposScreen(
 }
 
 
-
 @Preview(showBackground = true)
 @Composable
-fun ReposScreenErrorPreview() {
-    ReposScreen(
+fun DetailScreenErrorPreview() {
+    DetailScreen(
         state = DetailContract.State(
             detail = com.cryptospark.data.model.buildCoinDetailPreview(),
             isLoading = false,

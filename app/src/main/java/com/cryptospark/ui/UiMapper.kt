@@ -17,22 +17,7 @@ fun com.cryptospark.data.model.Market.toPresentationModel() = MarketDisplayable(
    symbol = symbol,
     image = image,
     currentPrice = currentPrice,
-    sparklineData = sparklineIn7d?.price?.let {
-        val div = when(it.size) {
-                in 0..100 -> 5
-                in 100..200 -> 10
-                else -> 20
-            }
-
-            it.filterIndexed { index, _ ->
-                index % div == 0
-            }
-
-    }?.map {
-        it.roundToNDecimals(decimals = 8)
-    }?.mapIndexed { _, d ->
-        com.cryptospark.data.model.DataPoint(y = d, xLabel = null, yLabel = null)
-    }?.toImmutableList() ?: persistentListOf(),
+    sparklineData = sparklineIn7d?.price.toSparklineData()
 )
 
 fun com.cryptospark.data.model.CoinDetail.toPresentationModel() = CoinDetailDisplayable(
@@ -41,7 +26,11 @@ fun com.cryptospark.data.model.CoinDetail.toPresentationModel() = CoinDetailDisp
     symbol = symbol,
     image = image.large,
     description = description.en,
-    sparklineData = sparklineIn7d?.price?.let {
+    sparklineData = marketData?.sparkline7d?.price.toSparklineData()
+)
+
+fun List<Double>?.toSparklineData() =
+    this?.let {
         val div = when(it.size) {
             in 0..100 -> 5
             in 100..200 -> 10
@@ -56,8 +45,7 @@ fun com.cryptospark.data.model.CoinDetail.toPresentationModel() = CoinDetailDisp
         it.roundToNDecimals(decimals = 8)
     }?.mapIndexed { _, d ->
         com.cryptospark.data.model.DataPoint(y = d, xLabel = null, yLabel = null)
-    }?.toImmutableList() ?: persistentListOf(),
-)
+    }?.toImmutableList() ?: persistentListOf()
 
 fun Double.roundToNDecimals(decimals: Int, roundingMode: RoundingMode = RoundingMode.UP): Double {
     return this.toBigDecimal().setScale(decimals, roundingMode).toDouble()

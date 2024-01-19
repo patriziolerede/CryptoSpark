@@ -2,6 +2,7 @@ package com.cryptospark.ui.feature.markets
 
 import androidx.lifecycle.viewModelScope
 import com.cryptospark.ui.base.BaseViewModel
+import com.cryptospark.ui.toPresentationModel
 import kotlinx.coroutines.launch
 
 class MarketsViewModel(
@@ -18,7 +19,7 @@ class MarketsViewModel(
 
     override fun handleEvents(event: MarketsContract.Event) {
         when (event) {
-            is MarketsContract.Event.MarketSelection -> setEffect { MarketsContract.Effect.Navigation.ToRepos(event.market.id) }
+            is MarketsContract.Event.UserSelection -> setEffect { MarketsContract.Effect.Navigation.ToRepos(event.market.id) }
             is MarketsContract.Event.Retry -> getMarkets()
         }
     }

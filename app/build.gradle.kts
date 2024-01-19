@@ -43,7 +43,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Dependencies.Android.Version.compose
+        kotlinCompilerExtensionVersion = Dependencies.Android.Version.composeCompiler
     }
 
     packagingOptions {
