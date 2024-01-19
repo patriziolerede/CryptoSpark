@@ -48,7 +48,7 @@ fun MarketsScreen(
         when {
             state.isLoading -> Progress()
             state.isError -> NetworkError { onEventSent(MarketsContract.Event.Retry) }
-            else -> MarketsList(markets = state.markets) { onEventSent(MarketsContract.Event.UserSelection(it)) }
+            else -> MarketsList(markets = state.markets) { onEventSent(MarketsContract.Event.MarketSelection(it)) }
         }
     }
 }

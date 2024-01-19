@@ -30,7 +30,7 @@ fun AppNavigation() {
                 type = NavType.StringType
             })
         ) { backStackEntry ->
-            val coinId = requireNotNull(backStackEntry.arguments?.getString(COIN_ID)) { "User id is required as an argument" }
+            val coinId = requireNotNull(backStackEntry.arguments?.getString(COIN_ID)) { "Coin id is required as an argument" }
             ReposScreenDestination(
                 CoinId = coinId,
                 navController = navController
@@ -52,6 +52,6 @@ object Navigation {
 
 }
 
-fun NavController.navigateToRepos(userId: String) {
-    navigate(route = "${Navigation.Routes.MARKETS}/$userId")
+fun NavController.navigateToRepos(coinId: String) {
+    navigate(route = "${Navigation.Routes.MARKETS}/$coinId")
 }

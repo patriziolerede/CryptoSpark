@@ -48,7 +48,7 @@ fun DetailHeader(coinDetail: CoinDetailDisplayable) {
         horizontalAlignment = Alignment.Start,
     ) {
         item {
-            ScoreSession(coinDetail)
+            IconSection(coinDetail)
 
             Spacer(modifier = Modifier.size(paddingXSmall))
         }
@@ -80,7 +80,7 @@ fun DetailHeader(coinDetail: CoinDetailDisplayable) {
 }
 
 @Composable
-fun ScoreSession(coinDetail: CoinDetailDisplayable) {
+fun IconSection(coinDetail: CoinDetailDisplayable) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -88,7 +88,6 @@ fun ScoreSession(coinDetail: CoinDetailDisplayable) {
     ) {
         RoundedImage(
             url = coinDetail.image.orEmpty(),
-            placeholder = R.drawable.avatar_placeholder,
             modifier = Modifier
                 .size(dimensionResource(id = R.dimen.avatar_size_large))
                 .padding(end = dimensionResource(id = R.dimen.padding_medium))

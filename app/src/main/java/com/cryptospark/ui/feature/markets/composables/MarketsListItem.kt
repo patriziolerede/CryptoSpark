@@ -31,8 +31,8 @@ fun MarketsListItem(
 ) {
     val paddingXXSmall = dimensionResource(id = R.dimen.padding_xxsmall)
     val paddingMedium = dimensionResource(id = R.dimen.padding_medium)
-    val avatarSize = dimensionResource(id = R.dimen.avatar_size_medium)
-    val dividerStartIndent = dimensionResource(id = R.dimen.user_list_item_start_indent)
+    val imageSize = dimensionResource(id = R.dimen.avatar_size_medium)
+    val dividerStartIndent = dimensionResource(id = R.dimen.market_list_item_start_indent)
 
     Column(
         modifier = Modifier
@@ -49,9 +49,8 @@ fun MarketsListItem(
         ) {
             RoundedImage(
                 url = market.image.orEmpty(),
-                placeholder = R.drawable.avatar_placeholder,
                 modifier = Modifier
-                    .size(avatarSize)
+                    .size(imageSize)
                     .padding(end = paddingMedium)
             )
             Column {

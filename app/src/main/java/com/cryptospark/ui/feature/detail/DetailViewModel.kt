@@ -30,11 +30,11 @@ class DetailViewModel(
 
     private fun getAll() {
         viewModelScope.launch {
-            getUser()
+            getDetail()
         }
     }
 
-    private suspend fun getUser() {
+    private suspend fun getDetail() {
         coingeckoRepository.getCoinDetail(coinId)
             .onSuccess { coinDetail ->
                 setState { copy(detail = coinDetail, isLoading = false) }

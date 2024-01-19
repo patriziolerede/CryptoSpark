@@ -28,7 +28,7 @@ fun MarketsList(
 
 @Preview(showBackground = true)
 @Composable
-fun UsersListPreview() {
+fun MarketsListPreview() {
     val markets = List(3) { com.cryptospark.data.model.buildMarketPreview() }
     MarketsList(markets = markets) {}
 }

@@ -14,7 +14,6 @@ import com.cryptospark.R
 @Composable
 fun RoundedImage(
     url: String,
-    @DrawableRes placeholder: Int,
     modifier: Modifier = Modifier,
     crossfade: Boolean = true,
 ) {
@@ -23,7 +22,6 @@ fun RoundedImage(
             data = url,
             builder = {
                 crossfade(crossfade)
-                placeholder(placeholder)
                 transformations(CircleCropTransformation())
             }
         ),
@@ -36,8 +34,7 @@ fun RoundedImage(
 @Composable
 fun RoundedImagePreview() {
     RoundedImage(
-        url = "",
-        placeholder = R.drawable.avatar_placeholder,
+        url = "https://assets.coingecko.com/coins/images/325/large/Tether.png?1696501661",
         modifier = Modifier.size(dimensionResource(id = R.dimen.avatar_size_medium))
     )
 }
