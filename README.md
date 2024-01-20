@@ -66,3 +66,6 @@ Unit test coverage for the networking and mapping functions
 <img src="misc/testcoverage.png" width="400">
 </p>
 </div>
+
+## Screen
+<img src="misc/screenrecorded.gif" width="400">
