@@ -4,6 +4,7 @@
 
 # CryptoSpark (Kotlin + Jetpack Compose + Navigation + MVI)
 
+</div>
 ![Language](https://img.shields.io/github/languages/top/cortinico/kotlin-android-template?color=blue&logo=kotlin)
 
 CryptoSpark is a sample project showcasing a contemporary Android app development approach. 
