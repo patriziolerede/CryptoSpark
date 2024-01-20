@@ -153,13 +153,6 @@ fun LineChart(
                     textPaint
                 )
             }
-
-
-
         }
-
-
-
-
     }
 }

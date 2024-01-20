@@ -9,6 +9,7 @@ import com.cryptospark.ui.base.SIDE_EFFECTS_KEY
 import com.cryptospark.ui.feature.common.NetworkError
 import com.cryptospark.ui.feature.common.Progress
 import com.cryptospark.ui.feature.detail.DetailContract
+import com.cryptospark.ui.feature.detail.DetailViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -44,7 +45,7 @@ fun DetailScreen(
             state.isError -> NetworkError { onEventSent(DetailContract.Event.Retry) }
             else -> {
                 state.detail?.let { detail ->
-                    DetailHeader(coinDetail = detail)
+                    DetailHeader(coinDetail = detail,isChartVisible =state.isChartVisible){ onEventSent(DetailContract.Event.ShowCart) }
                 }
             }
         }
@@ -60,6 +61,7 @@ fun DetailScreenErrorPreview() {
             detail = com.cryptospark.data.model.buildCoinDetailPreview(),
             isLoading = false,
             isError = true,
+            isChartVisible = true
         ),
         effectFlow = null,
         onEventSent = {},

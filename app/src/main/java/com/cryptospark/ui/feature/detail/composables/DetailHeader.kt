@@ -3,9 +3,10 @@ package com.cryptospark.ui.feature.detail.composables
 import android.text.util.Linkify.WEB_URLS
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,16 +24,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Link
-import androidx.compose.material.icons.rounded.InsertLink
 import androidx.compose.material.icons.rounded.Link
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -52,12 +51,15 @@ import com.cryptospark.ui.models.CoinDetailDisplayable
 import com.cryptospark.ui.theme.backgroundColor
 import com.cryptospark.ui.theme.paddingXL
 import com.cryptospark.ui.theme.primaryColor
-import com.cryptospark.ui.theme.primaryLightColor
 import com.google.android.material.textview.MaterialTextView
 import java.util.Locale
 
 @Composable
-fun DetailHeader(coinDetail: CoinDetailDisplayable) {
+fun DetailHeader(
+    coinDetail: CoinDetailDisplayable,
+    isChartVisible: Boolean,
+    onShowChart: () -> Unit
+) {
     val paddingMedium = dimensionResource(id = R.dimen.padding_medium)
     Scaffold(
         floatingActionButton = {
@@ -90,8 +92,10 @@ fun DetailHeader(coinDetail: CoinDetailDisplayable) {
                         Spacer(modifier = Modifier.size(paddingMedium))
                     }
                     item {
+
                         AnimatedVisibility(
-                            visible = true,
+                            visible = isChartVisible,
+                            enter = expandVertically() + fadeIn(),
                             exit = ExitTransition.None
                         ) {
 
@@ -100,10 +104,14 @@ fun DetailHeader(coinDetail: CoinDetailDisplayable) {
                                     .fillMaxWidth()
                                     .height(128.dp),
                                 data = coinDetail.sparklineData,
-                                graphColor =   primaryColor,
+                                graphColor = primaryColor,
                                 showDashedLine = true,
                                 showYLabels = true
                             )
+                        }
+
+                        LaunchedEffect(null) {
+                            onShowChart()
                         }
                         Spacer(modifier = Modifier.size(paddingMedium))
                         DetailSession(coinDetail)
@@ -181,20 +189,24 @@ fun ButtonSection(coinDetail: CoinDetailDisplayable) {
     // View Website
     val websiteNotFoundDialog = remember { mutableStateOf(false) }
 
-    Row(modifier = Modifier.fillMaxWidth().padding(8.dp), horizontalArrangement = Arrangement.End) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp), horizontalArrangement = Arrangement.End
+    ) {
 
 
-        OutlinedButton(modifier= Modifier.size(48.dp),
+        OutlinedButton(modifier = Modifier.size(48.dp),
             shape = CircleShape,
-            border= BorderStroke(1.dp, primaryColor),
+            border = BorderStroke(1.dp, primaryColor),
             contentPadding = PaddingValues(0.dp),
-            colors = ButtonDefaults.outlinedButtonColors(contentColor =  primaryColor), onClick = {
-            if (coinDetail.website.isNullOrEmpty()) {
-                websiteNotFoundDialog.value = true
-            } else {
-                context.startActivity(websiteIntent)
-            }
-        }) {
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = primaryColor), onClick = {
+                if (coinDetail.website.isNullOrEmpty()) {
+                    websiteNotFoundDialog.value = true
+                } else {
+                    context.startActivity(websiteIntent)
+                }
+            }) {
             Icon(
                 imageVector = Icons.Rounded.Link,
                 contentDescription = stringResource(R.string.button_view_website_title),

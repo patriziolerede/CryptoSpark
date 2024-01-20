@@ -9,10 +9,12 @@ class DetailContract {
 
     sealed class Event : ViewEvent {
         object Retry : Event()
+        object ShowCart : Event()
         object BackButtonClicked : Event()
     }
 
     data class State(
+        val isChartVisible: Boolean,
         val detail: CoinDetailDisplayable?,
         val isLoading: Boolean,
         val isError: Boolean,

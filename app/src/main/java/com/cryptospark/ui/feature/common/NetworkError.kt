@@ -19,7 +19,7 @@ import com.cryptospark.R
 @Composable
 fun NetworkError(
     modifier: Modifier = Modifier,
-    onRetryButtonClick: () -> Unit,
+    onRetryButtonClick: () -> Unit
 ) {
    Column(
        modifier = modifier.fillMaxSize(),

@@ -31,7 +31,7 @@ fun AppNavigation() {
             })
         ) { backStackEntry ->
             val coinId = requireNotNull(backStackEntry.arguments?.getString(COIN_ID)) { "Coin id is required as an argument" }
-            ReposScreenDestination(
+            DetailScreenDestination(
                 CoinId = coinId,
                 navController = navController
             )

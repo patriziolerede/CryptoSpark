@@ -17,6 +17,7 @@ class DetailViewModel(
         detail = null,
         isLoading = true,
         isError = false,
+        isChartVisible = false
     )
 
     override fun handleEvents(event: DetailContract.Event) {
@@ -25,7 +26,12 @@ class DetailViewModel(
                 setEffect { DetailContract.Effect.Navigation.Back }
             }
             DetailContract.Event.Retry -> getAll()
+            DetailContract.Event.ShowCart -> showChart()
         }
+    }
+
+    fun showChart() {
+        setState { copy(isChartVisible = true) }
     }
 
     private fun getAll() {
