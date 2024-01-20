@@ -35,14 +35,16 @@ import com.cryptospark.ui.feature.common.RoundedImage
 import com.cryptospark.ui.feature.common.coloredShadow
 import com.cryptospark.ui.feature.detail.composables.LineChart
 import com.cryptospark.ui.models.MarketDisplayable
-import com.cryptospark.ui.theme.InformationColor
 import com.cryptospark.ui.theme.Purple200
 import com.cryptospark.ui.theme.Purple500
 import com.cryptospark.ui.theme.SuccessColor
+import com.cryptospark.ui.theme.backgroundColor
 import com.cryptospark.ui.theme.paddingNone
 import com.cryptospark.ui.theme.paddingSmall
 import com.cryptospark.ui.theme.paddingXL
 import com.cryptospark.ui.theme.paddingXXL
+import com.cryptospark.ui.theme.primaryColor
+import com.cryptospark.ui.theme.primaryDarkColor
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -53,7 +55,10 @@ fun MarketsListItem(
    val shapeXlarge = dimensionResource(id = R.dimen.shape_xlarge)
     val paddingMedium = dimensionResource(id = R.dimen.padding_medium)
     val imageSize = dimensionResource(id = R.dimen.avatar_size_medium)
-    val gradientBrush = Brush.verticalGradient(listOf(InformationColor.copy(.3F), InformationColor.copy(.5F)), startY = 10F)
+    val gradientBrush = Brush.verticalGradient(listOf(backgroundColor.copy(.3F), backgroundColor
+
+
+        .copy(.5F)), startY = 10F)
 
         Row(
             modifier = Modifier
@@ -61,7 +66,7 @@ fun MarketsListItem(
                 .fillMaxWidth()
                 .padding(paddingXL)
                 .coloredShadow(
-                    InformationColor,
+                    backgroundColor,
                     alpha = 0.7F,
                     borderRadius = paddingXXL,
                     shadowRadius = paddingMedium,
@@ -93,14 +98,16 @@ fun MarketsListItem(
             ) {
                 Text(
                     text = market.name.orEmpty(),
-                    style = MaterialTheme.typography.h5,
+                    style = MaterialTheme.typography.h2,
                     fontWeight = FontWeight.Bold,
+                    color = primaryColor,
                     modifier = Modifier.width(IntrinsicSize.Max)
                 )
                 Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
                     text = market.currentPrice,
                     textAlign = TextAlign.Center,
+                    color = primaryColor,
                     fontWeight = FontWeight.Medium,
                     maxLines = 1
                 )
@@ -111,7 +118,7 @@ fun MarketsListItem(
                     .padding(paddingMedium)
                     .align(Alignment.CenterVertically),
                 data = market.sparklineData,
-                graphColor = Color.Blue,
+                graphColor =   primaryColor,
                 showDashedLine = true
             )
 

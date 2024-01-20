@@ -5,28 +5,29 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
-private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
+private val DarkColorPalette = lightColors(
+    primary = primaryDarkColor,
+    secondary = secondaryColor,
+    background = primaryDarkColor,
+    surface = primaryColor,
+    onPrimary = secondaryLightColor,
+    onSecondary = secondaryTextColor,
+    onBackground = primaryColor,
+    onSurface = primaryColor
 )
 
-private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
+private val LightColorPalette = darkColors(
+    primary = primaryColor,
+    secondary = secondaryLightColor,
+    background = secondaryColor,
+    surface = primaryLightColor,
     onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
+    onSecondary = Color.White,
+    onBackground = Color.White,
+    onSurface = primaryColor
 )
-
 @Composable
 fun CryptoSparkComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

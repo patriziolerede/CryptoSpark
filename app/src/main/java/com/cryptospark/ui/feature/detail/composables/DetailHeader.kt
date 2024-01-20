@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
@@ -41,11 +42,14 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.cryptospark.R
 import com.cryptospark.ui.feature.common.RoundedImage
 import com.cryptospark.ui.models.CoinDetailDisplayable
-import com.cryptospark.ui.theme.InformationColor
 import com.cryptospark.ui.theme.OnSurfaceTextAlpha
 import com.cryptospark.ui.theme.Purple200
+import com.cryptospark.ui.theme.backgroundColor
 import com.cryptospark.ui.theme.paddingXL
 import com.cryptospark.ui.theme.paddingXXL
+import com.cryptospark.ui.theme.primaryColor
+import com.cryptospark.ui.theme.primaryDarkColor
+import com.cryptospark.ui.theme.primaryLightColor
 import com.google.android.material.textview.MaterialTextView
 import java.util.Locale
 
@@ -59,7 +63,7 @@ fun DetailHeader(coinDetail: CoinDetailDisplayable) {
             .wrapContentHeight()
             .padding(16.dp)
             .clip(RoundedCornerShape(12.dp))
-            .background(InformationColor),
+            .background(backgroundColor),
         contentAlignment = Alignment.TopCenter
     ) {
 
@@ -67,7 +71,7 @@ fun DetailHeader(coinDetail: CoinDetailDisplayable) {
             modifier = Modifier
                 .fillMaxSize()
                 .clip(RoundedCornerShape(12.dp))
-                .background(InformationColor)
+                .background(backgroundColor)
                 .padding(16.dp),
             contentPadding = PaddingValues(top = 16.dp, bottom = 32.dp),
             verticalArrangement = Arrangement.Top,
@@ -89,7 +93,7 @@ fun DetailHeader(coinDetail: CoinDetailDisplayable) {
                             .fillMaxWidth()
                             .height(128.dp),
                         data = coinDetail.sparklineData,
-                        graphColor = Purple200,
+                        graphColor =   primaryColor,
                         showDashedLine = true,
                         showYLabels = true
                     )
@@ -129,14 +133,16 @@ fun IconSection(coinDetail: CoinDetailDisplayable) {
 fun DetailSession(coinDetail: CoinDetailDisplayable) {
     Text(
         text = coinDetail.name,
-        style = MaterialTheme.typography.h5,
-        fontWeight = FontWeight.Bold
+        style = MaterialTheme.typography.h2,
+        fontWeight = FontWeight.Bold,
+        color = primaryColor
     )
 
     Spacer(modifier = Modifier.size(paddingXL))
     Text(
         text = coinDetail.symbol.orEmpty(),
-        style = MaterialTheme.typography.h6,
+        fontWeight = FontWeight.SemiBold,
+        color = primaryColor,
         textAlign = TextAlign.Start
     )
     Spacer(modifier = Modifier.size(paddingXL))
@@ -148,7 +154,7 @@ fun DetailSession(coinDetail: CoinDetailDisplayable) {
                 autoLinkMask = WEB_URLS
                 linksClickable = true
                 // setting the color to use forr highlihting the links
-                setLinkTextColor(Purple200.toArgb())
+                setLinkTextColor(primaryColor.toArgb())
             }
         },
         update = {

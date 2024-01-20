@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.cryptospark.ui.models.DataPoint
-import com.cryptospark.ui.theme.Purple500
+import com.cryptospark.ui.theme.primaryColor
 import kotlinx.collections.immutable.ImmutableList
 import timber.log.Timber
 
@@ -55,32 +55,7 @@ fun LineChart(
     Canvas(modifier = modifier) {
 
         val spacePerHour = (size.width - spacing) / data.size
-        /*
-        (0 until data.size - 1 step 2).forEach { i ->
-            val info = data[i]
-            val hour = info.xLabel
-            drawContext.canvas.nativeCanvas.apply {
-                drawText(
-                    hour.toString(),
-                    spacing + i * spacePerHour,
-                    size.height - 5,
-                    textPaint
-                )
-            }
-        }
-        val priceStep = (upperValue - lowerValue) / 5f
-        (0..4).forEach { i ->
-            drawContext.canvas.nativeCanvas.apply {
-                drawText(
-                    round(lowerValue + priceStep * i).toString(),
-                    30f,
-                    size.height - spacing - i * size.height / 5f,
-                    textPaint
-                )
-            }
-        }
 
-         */
         var lastX = 0f
         var firstY = 0f
         val strokePath = Path().apply {
@@ -157,7 +132,7 @@ fun LineChart(
 
         if (showYLabels) {
             val textPaint = Paint().apply {
-                color = Purple500.toArgb()
+                color = primaryColor.toArgb()
                 textAlign = Paint.Align.RIGHT
                 textSize = density.run { 12.dp.toPx() }
                 typeface = setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD))
@@ -180,34 +155,10 @@ fun LineChart(
             }
 
 
-            /*
-            val steps = 4
-            val priceStep = (upperValue - lowerValue) / steps.toFloat()
-            (0 until steps).forEach { i ->
-                drawContext.canvas.nativeCanvas.apply {
-                    drawText(
-                        (lowerValue + priceStep * i).toString(),
-                        16.dp.toPx(),
-                        size.height - spacing - i * size.height / steps.toFloat(),
-                        textPaint
-                    )
-                }
-            }
 
-             */
         }
 
-        /*
-        drawContext.canvas.nativeCanvas.apply {
-            drawText(
-                "22,094.00",
-                8.dp.toPx(),
-                firstY - 4.dp.toPx(),
-                textPaint
-            )
-        }
 
-         */
 
 
     }
