@@ -28,6 +28,7 @@ This sample app embodies a scalable and maintainable modern Android application 
         * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/) for navigation between composables
         * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) that stores, exposes and manages UI state
     * [Retrofit](https://square.github.io/retrofit/) for networking
+    * [Timber](https://github.com/JakeWharton/timber) for logging
     * [Coil](https://github.com/coil-kt/coil) for image loading
 
 * Modern Architecture
@@ -35,7 +36,8 @@ This sample app embodies a scalable and maintainable modern Android application 
     * MVI
     * [Android Architecture components](https://developer.android.com/topic/libraries/architecture) ([ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel), [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation))
     * [Android KTX](https://developer.android.com/kotlin/ktx) - Jetpack Kotlin extensions
-
+## Platform
+Kotlin 1.9.0 and Android Studio Hedgehog | 2023.1.1 Patch 1
 
 ## Architecture
 The project is layered traditionally with a View, Presentation, Model separation and presents a MVI but adapted to Compose.
@@ -44,7 +46,9 @@ Architecture layers:
 * View - Composable screens responsible for consuming state, applying effects, and handling events.
 * ViewModel - That effectively manages and reduces the state of the associated screen. Moreover, it intercepts UI events and generates side-effects. The lifecycle scope of the ViewModel is linked to the corresponding screen composable.
 * Model - Repository classes designed to retrieve data. Within a clean architecture framework, it is recommended to utilize use-cases that interface with repositories.
-
+<div align="center">
+<p><img src="misc/architecture.png" width="800"></p>
+</div>
 
 There are a three core components described:
 * **State** - This is a data class that holds the state content of the corresponding screen, such as a list of User and loading status. The state is exposed as a Compose runtime MutableState object, which perfectly matches the use case of receiving continuous updates with an initial value.
