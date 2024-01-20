@@ -8,6 +8,7 @@ import io.mockk.mockk
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
@@ -41,7 +42,7 @@ class MarketsViewModelTest {
     @Test
     fun `When getMarkets called then should emit a view state`() = runTest {
         // Given
-        val markets = listOf(MarketDisplayable(id = "bitcoin", sparklineData = persistentListOf()))
+        val markets = listOf(MarketDisplayable(id = "bitcoin", currentPrice = "5", sparklineData = persistentListOf()))
         val expectedViewState = MarketsContract.State(
             markets = markets,
             isLoading = false,
@@ -60,7 +61,7 @@ class MarketsViewModelTest {
     fun `When `() = runTest {
 
         // Given
-        val markets = listOf(MarketDisplayable(id = "bitcoin", sparklineData = persistentListOf()))
+        val markets = listOf(MarketDisplayable(id = "bitcoin", currentPrice = "5", sparklineData = persistentListOf()))
         val expectedViewState = MarketsContract.State(
             markets = markets,
             isLoading = false,

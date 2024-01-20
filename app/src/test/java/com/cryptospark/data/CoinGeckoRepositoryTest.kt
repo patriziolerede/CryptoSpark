@@ -42,7 +42,7 @@ class CoinGeckoRepositoryTest {
             Image("", "", ""), description = Description(""), links = Links(
                 emptyList(), "",
                 emptyList()
-            ), sparklineIn7d = null
+            ), marketData = null
         )
 
         // When
