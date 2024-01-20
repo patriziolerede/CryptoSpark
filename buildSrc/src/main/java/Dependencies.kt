@@ -9,7 +9,7 @@ object Dependencies {
 
         object Version {
             const val gradle = "7.0.4"
-            const val kotlin = "1.7.20"
+            const val kotlin = "1.9.0"
         }
 
         const val gradle = "com.android.tools.build:gradle:${Version.gradle}"
@@ -19,11 +19,11 @@ object Dependencies {
     object Android {
 
         object Version {
-            const val coreKtx = "1.7.0"
+            const val coreKtx = "1.9.0"
             const val appCompat = "1.4.1"
             const val activityCompose = "1.4.0"
             const val compose = "1.3.0"
-            const val composeCompiler = "1.3.2"
+            const val composeCompiler = "1.5.0"
             const val lifecycle = "2.5.0-rc01"
             const val lifecycleExtensions = "2.2.0"
         }
@@ -59,11 +59,10 @@ object Dependencies {
 
         object Version {
             const val androidMaterial = "1.6.0"
-            const val coilCompose = "1.3.2"
+            const val coilCompose = "2.5.0"
             const val coroutines = "1.6.0"
             const val kotlinCollections = "0.3.5"
             const val retrofit = "2.9.0"
-            const val chucker = "4.0.0"
             const val timber = "5.0.1"
             const val koin = "3.1.5"
         }
@@ -80,7 +79,8 @@ object Dependencies {
         const val retrofit = "com.squareup.retrofit2:retrofit:${Version.retrofit}"
         const val retrofitConverterGson =
             "com.squareup.retrofit2:converter-gson:${Version.retrofit}"
-        const val chucker = "com.github.chuckerteam.chucker:library:${Version.chucker}"
+
+        // UiLibs
         const val androidMaterial =
             "com.google.android.material:material:${Version.androidMaterial}"
         const val coilCompose = "io.coil-kt:coil-compose:${Version.coilCompose}"

@@ -84,7 +84,6 @@ dependencies {
     implementation(Dependencies.Android.lifecycleViewModelCompose)
 
     // Third Party
-    //implementation(Dependencies.ThirdParty.chucker)
     implementation(Dependencies.ThirdParty.timber)
 
     implementation(Dependencies.ThirdParty.coilCompose)

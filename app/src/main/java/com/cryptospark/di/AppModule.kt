@@ -9,7 +9,6 @@ val appModule = module {
 
     single {
         OkHttpClient.Builder()
-            //.addInterceptor(ChuckerInterceptor( this.androidContext()))
             .build()
     }
 
