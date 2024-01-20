@@ -28,6 +28,7 @@ This sample app embodies a scalable and maintainable modern Android application 
         * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/) for navigation between composables
         * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) that stores, exposes and manages UI state
     * [Retrofit](https://square.github.io/retrofit/) for networking
+    * [Timber](https://github.com/JakeWharton/timber) for logging
     * [Coil](https://github.com/coil-kt/coil) for image loading
 
 * Modern Architecture
@@ -35,7 +36,8 @@ This sample app embodies a scalable and maintainable modern Android application 
     * MVI
     * [Android Architecture components](https://developer.android.com/topic/libraries/architecture) ([ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel), [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation))
     * [Android KTX](https://developer.android.com/kotlin/ktx) - Jetpack Kotlin extensions
-
+## Platform
+Kotlin 1.9.0 and Android Studio Hedgehog | 2023.1.1 Patch 1
 
 ## Architecture
 The project is layered traditionally with a View, Presentation, Model separation and presents a MVI but adapted to Compose.
