@@ -3,8 +3,7 @@
 <p><img src="misc/ic_launcher.png" width="200"></p>
 </div>
 
-# CryptoSpark (Kotlin + Jetpack Compose + Navigation + MVI)
-
+# CryptoSpark 
 
 ![Language](https://img.shields.io/github/languages/top/cortinico/kotlin-android-template?color=blue&logo=kotlin)
 
