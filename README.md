@@ -44,7 +44,9 @@ Architecture layers:
 * View - Composable screens responsible for consuming state, applying effects, and handling events.
 * ViewModel - That effectively manages and reduces the state of the associated screen. Moreover, it intercepts UI events and generates side-effects. The lifecycle scope of the ViewModel is linked to the corresponding screen composable.
 * Model - Repository classes designed to retrieve data. Within a clean architecture framework, it is recommended to utilize use-cases that interface with repositories.
-
+<div align="center">
+<p><img src="misc/architecture.png" width="800"></p>
+</div>
 
 There are a three core components described:
 * **State** - This is a data class that holds the state content of the corresponding screen, such as a list of User and loading status. The state is exposed as a Compose runtime MutableState object, which perfectly matches the use case of receiving continuous updates with an initial value.
