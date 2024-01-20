@@ -58,3 +58,12 @@ There are a three core components described:
 * **Effect** - This is a plain object that signals one-time side-effect actions affecting the UI. For example, it could trigger a navigation action or display a message such as a Toast or SnackBar. Effects are accessible as ChannelFlow, where each event is delivered to a single subscriber. If an event is posted without any subscribers, it will suspend as soon as the channel buffer becomes full, waiting for a subscriber to appear.
 
 Each screen or flow defines its own contract class that outlines all the corresponding core components mentioned above: state content, events, and effects.
+
+## Test
+Unit test coverage for the networking and mapping functions
+<div align="center">
+<p>
+<img src="misc/testtree.png" width="400">
+<img src="misc/testcoverage.png" width="400">
+</p>
+</div>
