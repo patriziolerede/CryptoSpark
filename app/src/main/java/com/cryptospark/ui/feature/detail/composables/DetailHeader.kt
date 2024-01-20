@@ -3,34 +3,41 @@ package com.cryptospark.ui.feature.detail.composables
 import android.text.util.Linkify.WEB_URLS
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Link
+import androidx.compose.material.icons.rounded.InsertLink
+import androidx.compose.material.icons.rounded.Link
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
@@ -42,13 +49,9 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.cryptospark.R
 import com.cryptospark.ui.feature.common.RoundedImage
 import com.cryptospark.ui.models.CoinDetailDisplayable
-import com.cryptospark.ui.theme.OnSurfaceTextAlpha
-import com.cryptospark.ui.theme.Purple200
 import com.cryptospark.ui.theme.backgroundColor
 import com.cryptospark.ui.theme.paddingXL
-import com.cryptospark.ui.theme.paddingXXL
 import com.cryptospark.ui.theme.primaryColor
-import com.cryptospark.ui.theme.primaryDarkColor
 import com.cryptospark.ui.theme.primaryLightColor
 import com.google.android.material.textview.MaterialTextView
 import java.util.Locale
@@ -56,60 +59,65 @@ import java.util.Locale
 @Composable
 fun DetailHeader(coinDetail: CoinDetailDisplayable) {
     val paddingMedium = dimensionResource(id = R.dimen.padding_medium)
+    Scaffold(
+        floatingActionButton = {
+            ButtonSection(coinDetail)
+        },
+        content = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(16.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(backgroundColor),
+                contentAlignment = Alignment.TopCenter
+            ) {
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(16.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(backgroundColor),
-        contentAlignment = Alignment.TopCenter
-    ) {
-
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(RoundedCornerShape(12.dp))
-                .background(backgroundColor)
-                .padding(16.dp),
-            contentPadding = PaddingValues(top = 16.dp, bottom = 32.dp),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.Start,
-        ) {
-            item {
-                IconSection(coinDetail)
-
-                Spacer(modifier = Modifier.size(paddingMedium))
-            }
-            item {
-                AnimatedVisibility(
-                    visible = true,
-                    exit = ExitTransition.None
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(backgroundColor)
+                        .padding(16.dp),
+                    contentPadding = PaddingValues(top = 16.dp, bottom = 32.dp),
+                    verticalArrangement = Arrangement.Top,
+                    horizontalAlignment = Alignment.Start,
                 ) {
+                    item {
+                        IconSection(coinDetail)
 
-                    LineChart(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(128.dp),
-                        data = coinDetail.sparklineData,
-                        graphColor =   primaryColor,
-                        showDashedLine = true,
-                        showYLabels = true
-                    )
+                        Spacer(modifier = Modifier.size(paddingMedium))
+                    }
+                    item {
+                        AnimatedVisibility(
+                            visible = true,
+                            exit = ExitTransition.None
+                        ) {
+
+                            LineChart(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(128.dp),
+                                data = coinDetail.sparklineData,
+                                graphColor =   primaryColor,
+                                showDashedLine = true,
+                                showYLabels = true
+                            )
+                        }
+                        Spacer(modifier = Modifier.size(paddingMedium))
+                        DetailSession(coinDetail)
+
+                        Spacer(modifier = Modifier.size(paddingMedium))
+
+                    }
+
                 }
-                Spacer(modifier = Modifier.size(paddingMedium))
-                DetailSession(coinDetail)
-
-                Spacer(modifier = Modifier.size(paddingMedium))
-
-                ButtonsSession(coinDetail)
 
             }
-
         }
+    )
 
-    }
 }
 
 @Composable
@@ -164,7 +172,7 @@ fun DetailSession(coinDetail: CoinDetailDisplayable) {
 }
 
 @Composable
-fun ButtonsSession(coinDetail: CoinDetailDisplayable) {
+fun ButtonSection(coinDetail: CoinDetailDisplayable) {
 
     val context = LocalContext.current
     val websiteIntent =
@@ -173,16 +181,25 @@ fun ButtonsSession(coinDetail: CoinDetailDisplayable) {
     // View Website
     val websiteNotFoundDialog = remember { mutableStateOf(false) }
 
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+    Row(modifier = Modifier.fillMaxWidth().padding(8.dp), horizontalArrangement = Arrangement.End) {
 
-        OutlinedButton(onClick = {
+
+        OutlinedButton(modifier= Modifier.size(48.dp),
+            shape = CircleShape,
+            border= BorderStroke(1.dp, primaryColor),
+            contentPadding = PaddingValues(0.dp),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor =  primaryColor), onClick = {
             if (coinDetail.website.isNullOrEmpty()) {
                 websiteNotFoundDialog.value = true
             } else {
                 context.startActivity(websiteIntent)
             }
         }) {
-            Text(text = stringResource(R.string.button_view_website_title))
+            Icon(
+                imageVector = Icons.Rounded.Link,
+                contentDescription = stringResource(R.string.button_view_website_title),
+                tint = primaryColor
+            )
         }
     }
 
